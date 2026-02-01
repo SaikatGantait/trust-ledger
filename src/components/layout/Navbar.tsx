@@ -36,8 +36,8 @@ export function Navbar() {
             <div className="absolute inset-0 rounded-lg bg-white/20 animate-pulse-soft" />
           </div>
           <span className="text-xl font-bold tracking-tight">
-            <span className="text-primary">Cred</span>
-            <span className="text-foreground">Layer</span>
+            <span className="text-primary">R</span>
+            <span className="text-foreground">-Credit</span>
           </span>
         </Link>
 
