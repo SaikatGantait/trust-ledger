@@ -11,8 +11,9 @@ import {
   ArrowRight, 
   CheckCircle2,
   Sparkles,
-  Users,
-  Zap
+  UserPlus,
+  LogIn,
+  Wallet
 } from "lucide-react";
 
 const features = [
@@ -36,24 +37,17 @@ const features = [
   },
 ];
 
-const stats = [
-  { value: "₹50Cr+", label: "Total Volume" },
-  { value: "12,000+", label: "Verified Identities" },
-  { value: "0.3%", label: "Default Rate" },
-  { value: "15%", label: "Avg APR" },
-];
-
 export default function Landing() {
   return (
     <PageLayout>
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden min-h-[calc(100vh-4rem)] flex items-center">
         {/* Background Elements */}
         <div className="absolute inset-0 hero-gradient opacity-5" />
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
         
-        <div className="container px-4 py-20 md:py-32 relative">
+        <div className="container px-4 py-16 md:py-20 relative">
           <div className="max-w-4xl mx-auto text-center">
             {/* Badge */}
             <motion.div
@@ -82,53 +76,77 @@ export default function Landing() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12"
             >
               Borrow using your reputation. Not your wallet balance.
               Build credit on-chain, access funds securely.
             </motion.p>
 
-            {/* CTAs */}
+            {/* User Type Selection Cards */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4"
+              className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto"
             >
-              <Button asChild size="lg" className="hero-gradient text-lg px-8 h-14 gap-2 shadow-lg hover:shadow-xl transition-all hover:scale-105">
-                <Link to="/verify">
-                  <Shield className="h-5 w-5" />
-                  Verify Identity
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg px-8 h-14 gap-2 border-2 hover:bg-secondary">
-                <Link to="/lend">
-                  <Users className="h-5 w-5" />
-                  Explore as Lender
-                </Link>
-              </Button>
+              {/* New User Card */}
+              <Link to="/verify">
+                <Card className="group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer h-full">
+                  <div className="absolute inset-0 hero-gradient opacity-0 group-hover:opacity-5 transition-opacity" />
+                  <CardContent className="p-8 text-center relative">
+                    <motion.div 
+                      className="w-16 h-16 rounded-2xl hero-gradient mx-auto mb-4 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform"
+                      whileHover={{ rotate: 5 }}
+                    >
+                      <UserPlus className="h-8 w-8 text-white" />
+                    </motion.div>
+                    <h3 className="text-xl font-bold mb-2">New User</h3>
+                    <p className="text-muted-foreground text-sm mb-4">
+                      Create your identity with PAN verification and device binding
+                    </p>
+                    <div className="flex items-center justify-center gap-2 text-primary font-medium">
+                      Start KYC
+                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+
+              {/* Existing User Card */}
+              <Link to="/dashboard">
+                <Card className="group relative overflow-hidden border-2 hover:border-accent/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer h-full">
+                  <div className="absolute inset-0 vault-gradient opacity-0 group-hover:opacity-5 transition-opacity" />
+                  <CardContent className="p-8 text-center relative">
+                    <motion.div 
+                      className="w-16 h-16 rounded-2xl vault-gradient mx-auto mb-4 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform"
+                      whileHover={{ rotate: -5 }}
+                    >
+                      <LogIn className="h-8 w-8 text-white" />
+                    </motion.div>
+                    <h3 className="text-xl font-bold mb-2">Existing User</h3>
+                    <p className="text-muted-foreground text-sm mb-4">
+                      Already verified? Access your dashboard and continue
+                    </p>
+                    <div className="flex items-center justify-center gap-2 text-accent font-medium">
+                      Go to Dashboard
+                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            {/* Security Note */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="mt-8 inline-flex items-center gap-2 text-sm text-muted-foreground"
+            >
+              <Shield className="h-4 w-4 text-primary" />
+              <span>Your identity is stored as a hash on-chain. No personal data exposed.</span>
             </motion.div>
           </div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-20 max-w-4xl mx-auto"
-          >
-            {stats.map((stat, index) => (
-              <div
-                key={stat.label}
-                className="text-center p-6 rounded-2xl bg-card border shadow-sm"
-              >
-                <div className="text-2xl md:text-3xl font-bold text-primary mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </div>
-            ))}
-          </motion.div>
         </div>
       </section>
 
@@ -189,7 +207,7 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Trust Banner */}
+      {/* Security Banner */}
       <section className="py-20 md:py-32">
         <div className="container px-4">
           <motion.div
@@ -197,122 +215,65 @@ export default function Landing() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative overflow-hidden rounded-3xl hero-gradient p-10 md:p-16 text-center text-white"
+            className="relative overflow-hidden rounded-3xl hero-gradient p-10 md:p-16 text-white"
           >
             {/* Decorative elements */}
             <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3" />
             
-            <div className="relative">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6">
-                <Lock className="h-4 w-4" />
-                <span className="text-sm font-medium">Secure by Design</span>
-              </div>
-              
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 max-w-3xl mx-auto">
-                Your identity is permanent. Defaults have consequences.
-              </h2>
-              
-              <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-8">
-                Unlike traditional DeFi, your credit history follows you across wallets and chains. 
-                Build trust, earn better rates.
-              </p>
-              
-              <Button asChild size="lg" variant="secondary" className="gap-2 text-lg px-8 h-14">
-                <Link to="/verify">
-                  Get Started
-                  <ArrowRight className="h-5 w-5" />
-                </Link>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Security Features */}
-      <section className="py-20 md:py-32 bg-muted/30">
-        <div className="container px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-6">
-                <Zap className="h-3.5 w-3.5" />
-                Why CredLayer?
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Hack-Resistant by Architecture
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Even if your wallet is compromised, your borrowed funds remain safe in the 
-                Deposit Wallet—protected by identity verification and device binding.
-              </p>
-              
-              <ul className="space-y-4">
-                {[
-                  "Funds never leave the protected vault",
-                  "Withdrawals require identity + device proof",
-                  "Credit tied to you, not your keys",
-                  "Defaults affect future access, not just one wallet",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-accent mt-0.5 shrink-0" />
-                    <span className="text-foreground">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative"
-            >
-              {/* Vault Visualization */}
-              <div className="relative p-8 rounded-3xl vault-gradient text-white overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
+            <div className="relative grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6">
+                  <Wallet className="h-4 w-4" />
+                  <span className="text-sm font-medium">Deposit Wallet Security</span>
+                </div>
                 
-                <div className="relative space-y-6">
-                  <div className="flex items-center gap-3">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                  Why hackers can't steal your borrowed funds
+                </h2>
+                
+                <ul className="space-y-4">
+                  {[
+                    "Borrowed money goes to Deposit Wallet, not your personal wallet",
+                    "Private key of Deposit Wallet is never shared",
+                    "Even if your account is hacked, funds stay protected",
+                    "Withdrawals require identity verification + device binding",
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <CheckCircle2 className="h-5 w-5 text-white/80 mt-0.5 shrink-0" />
+                      <span className="text-white/90">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="relative">
+                {/* Vault Visual */}
+                <div className="p-8 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20">
+                  <div className="flex items-center gap-3 mb-6">
                     <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">
                       <Lock className="h-6 w-6" />
                     </div>
                     <div>
                       <div className="font-semibold">Deposit Wallet</div>
-                      <div className="text-sm text-white/60">ZK-Verified Access Only</div>
+                      <div className="text-sm text-white/60">Predetermined & Secure</div>
                     </div>
                   </div>
 
-                  <div className="h-px bg-white/20" />
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 rounded-xl bg-white/10">
-                      <div className="text-sm text-white/60 mb-1">Security Status</div>
-                      <div className="flex items-center gap-2 font-semibold">
-                        <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                        Locked
-                      </div>
+                  <div className="space-y-3">
+                    <div className="p-3 rounded-xl bg-white/10">
+                      <div className="text-xs text-white/60 mb-1">Your Credit Score</div>
+                      <div className="text-2xl font-bold">Determines Limit</div>
                     </div>
-                    <div className="p-4 rounded-xl bg-white/10">
-                      <div className="text-sm text-white/60 mb-1">Access Type</div>
-                      <div className="font-semibold">Identity Bound</div>
-                    </div>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                    <div className="text-sm text-white/80">
-                      💡 Even if your wallet is hacked, funds stay protected here.
+                    <div className="p-3 rounded-xl bg-white/10">
+                      <div className="text-xs text-white/60 mb-1">Everyone Starts At</div>
+                      <div className="text-2xl font-bold">Score: 0</div>
                     </div>
                   </div>
                 </div>
               </div>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
     </PageLayout>
