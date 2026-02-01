@@ -7,8 +7,7 @@ import { motion } from "framer-motion";
 
 const navLinks = [
   { href: "/dashboard", label: "Dashboard" },
-  { href: "/borrow", label: "Borrow" },
-  { href: "/lend", label: "Lend" },
+  { href: "/borrow-lend", label: "Borrow & Lend" },
   { href: "/vault", label: "Vault" },
   { href: "/credit-profile", label: "Credit Profile" },
 ];
