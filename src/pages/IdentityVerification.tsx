@@ -14,7 +14,8 @@ import {
   Smartphone,
   FileText,
   Lock,
-  Sparkles
+  Zap,
+  Hexagon
 } from "lucide-react";
 
 const steps = [
@@ -31,7 +32,6 @@ export default function IdentityVerification() {
 
   const handlePanVerify = async () => {
     setIsVerifying(true);
-    // Simulate verification
     await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsVerifying(false);
     setCurrentStep(2);
@@ -50,8 +50,14 @@ export default function IdentityVerification() {
 
   return (
     <PageLayout showFooter={false}>
-      <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-muted/30 to-background">
-        <div className="container px-4 py-12">
+      <div className="min-h-[calc(100vh-4rem)] relative cyber-grid">
+        {/* Background Effects */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-1/4 w-96 h-96 bg-primary/15 rounded-full blur-[120px]" />
+          <div className="absolute bottom-20 right-1/4 w-80 h-80 bg-purple-500/15 rounded-full blur-[100px]" />
+        </div>
+
+        <div className="container px-4 py-12 relative">
           {/* Stepper */}
           <div className="max-w-2xl mx-auto mb-12">
             <div className="flex items-center justify-between relative">
@@ -62,6 +68,7 @@ export default function IdentityVerification() {
                   initial={{ width: "0%" }}
                   animate={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
                   transition={{ duration: 0.5 }}
+                  style={{ boxShadow: "0 0 10px hsla(200, 100%, 60%, 0.5)" }}
                 />
               </div>
 
@@ -79,9 +86,10 @@ export default function IdentityVerification() {
                         isCompleted
                           ? "hero-gradient text-white"
                           : isActive
-                          ? "hero-gradient text-white shadow-lg glow"
+                          ? "hero-gradient text-white neon-glow"
                           : "bg-muted border-2 border-border text-muted-foreground"
                       }`}
+                      style={isActive || isCompleted ? { boxShadow: "0 0 25px hsla(200, 100%, 60%, 0.4)" } : {}}
                     >
                       {isCompleted ? (
                         <CheckCircle2 className="h-6 w-6" />
@@ -113,9 +121,9 @@ export default function IdentityVerification() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <Card className="border-2 shadow-xl">
+                  <Card className="neon-card glow-border">
                     <CardHeader className="text-center pb-2">
-                      <div className="w-16 h-16 rounded-2xl hero-gradient mx-auto mb-4 flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-2xl hero-gradient mx-auto mb-4 flex items-center justify-center neon-glow">
                         <FileText className="h-8 w-8 text-white" />
                       </div>
                       <CardTitle className="text-2xl">PAN Verification</CardTitle>
@@ -131,7 +139,7 @@ export default function IdentityVerification() {
                           placeholder="ABCDE1234F"
                           value={panNumber}
                           onChange={(e) => setPanNumber(e.target.value.toUpperCase())}
-                          className="text-lg h-12 font-mono tracking-wider"
+                          className="text-lg h-12 font-mono tracking-wider border-primary/20 focus:border-primary"
                           maxLength={10}
                         />
                       </div>
@@ -142,7 +150,7 @@ export default function IdentityVerification() {
                           id="name"
                           value={panNumber.length === 10 ? "Rahul Sharma" : ""}
                           readOnly
-                          className="bg-muted h-12"
+                          className="bg-muted h-12 border-primary/10"
                           placeholder="Will be auto-filled after verification"
                         />
                       </div>
@@ -160,7 +168,7 @@ export default function IdentityVerification() {
                       <Button
                         onClick={handlePanVerify}
                         disabled={panNumber.length !== 10 || isVerifying}
-                        className="w-full h-12 text-lg hero-gradient gap-2"
+                        className="w-full h-12 text-lg hero-gradient gap-2 neon-glow cyber-button"
                       >
                         {isVerifying ? (
                           <>
@@ -187,9 +195,9 @@ export default function IdentityVerification() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <Card className="border-2 shadow-xl">
+                  <Card className="neon-card glow-border">
                     <CardHeader className="text-center pb-2">
-                      <div className="w-16 h-16 rounded-2xl hero-gradient mx-auto mb-4 flex items-center justify-center relative">
+                      <div className="w-16 h-16 rounded-2xl hero-gradient mx-auto mb-4 flex items-center justify-center relative neon-glow">
                         <Fingerprint className="h-8 w-8 text-white" />
                         <div className="absolute inset-0 rounded-2xl border-2 border-white/50 animate-ping" />
                       </div>
@@ -202,9 +210,9 @@ export default function IdentityVerification() {
                       {/* Animated Biometric Visual */}
                       <div className="relative py-8">
                         <div className="w-32 h-32 mx-auto relative">
-                          <div className="absolute inset-0 rounded-full bg-accent/20 animate-ping" />
-                          <div className="absolute inset-2 rounded-full bg-accent/30 animate-pulse" />
-                          <div className="absolute inset-4 rounded-full hero-gradient flex items-center justify-center">
+                          <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
+                          <div className="absolute inset-2 rounded-full bg-primary/30 animate-pulse" />
+                          <div className="absolute inset-4 rounded-full hero-gradient flex items-center justify-center neon-glow">
                             <Fingerprint className="h-12 w-12 text-white" />
                           </div>
                         </div>
@@ -228,7 +236,7 @@ export default function IdentityVerification() {
                       <Button
                         onClick={handleDeviceBind}
                         disabled={isVerifying}
-                        className="w-full h-12 text-lg hero-gradient gap-2"
+                        className="w-full h-12 text-lg hero-gradient gap-2 neon-glow cyber-button"
                       >
                         {isVerifying ? (
                           <>
@@ -254,46 +262,48 @@ export default function IdentityVerification() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4 }}
                 >
-                  <Card className="border-2 shadow-xl overflow-hidden">
-                    <div className="hero-gradient p-6 text-white text-center">
+                  <Card className="neon-card overflow-hidden">
+                    <div className="hero-gradient p-6 text-white text-center relative">
+                      <div className="absolute inset-0 cyber-grid opacity-20" />
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ type: "spring", duration: 0.6, delay: 0.2 }}
-                        className="w-20 h-20 rounded-full bg-white/20 mx-auto mb-4 flex items-center justify-center"
+                        className="relative w-20 h-20 rounded-full bg-white/20 mx-auto mb-4 flex items-center justify-center backdrop-blur-sm"
+                        style={{ boxShadow: "0 0 40px hsla(160, 100%, 50%, 0.4)" }}
                       >
                         <CheckCircle2 className="h-10 w-10" />
                       </motion.div>
-                      <h2 className="text-2xl font-bold">Identity Verified!</h2>
-                      <p className="text-white/80 mt-1">Welcome to CredLayer</p>
+                      <h2 className="text-2xl font-bold relative">Identity Verified!</h2>
+                      <p className="text-white/80 mt-1 relative">Welcome to R-Credit</p>
                     </div>
                     
                     <CardContent className="p-6 space-y-4">
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="p-4 rounded-xl bg-muted">
+                        <div className="p-4 rounded-xl bg-muted border border-primary/10">
                           <div className="text-sm text-muted-foreground mb-1">Identity Status</div>
                           <div className="flex items-center gap-2 font-semibold text-accent">
                             <CheckCircle2 className="h-4 w-4" />
                             Verified
                           </div>
                         </div>
-                        <div className="p-4 rounded-xl bg-muted">
+                        <div className="p-4 rounded-xl bg-muted border border-primary/10">
                           <div className="text-sm text-muted-foreground mb-1">Credit Score</div>
                           <div className="font-semibold text-2xl">0</div>
                         </div>
                       </div>
 
-                      <div className="p-4 rounded-xl bg-muted">
+                      <div className="p-4 rounded-xl bg-muted border border-primary/10">
                         <div className="text-sm text-muted-foreground mb-1">Identity Hash</div>
-                        <div className="font-mono text-sm bg-background rounded-lg px-3 py-2 border">
+                        <div className="font-mono text-sm hash-display">
                           0xA9F...E21
                         </div>
                       </div>
 
-                      <div className="p-4 rounded-xl bg-muted">
+                      <div className="p-4 rounded-xl bg-muted border border-primary/10">
                         <div className="text-sm text-muted-foreground mb-1">Account Type</div>
                         <div className="flex items-center gap-2">
-                          <Sparkles className="h-4 w-4 text-primary" />
+                          <Zap className="h-4 w-4 text-primary" />
                           <span className="font-medium">Unique Living Identity</span>
                         </div>
                       </div>
@@ -309,7 +319,7 @@ export default function IdentityVerification() {
 
                       <Button
                         onClick={handleComplete}
-                        className="w-full h-12 text-lg hero-gradient gap-2"
+                        className="w-full h-12 text-lg hero-gradient gap-2 neon-glow cyber-button"
                       >
                         Go to Dashboard
                         <ArrowRight className="h-5 w-5" />
