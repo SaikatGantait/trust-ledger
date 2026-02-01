@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageLayout } from "@/components/layout/PageLayout";
-import { Aurora } from "@appletosolutions/reactbits";
 import { 
   Shield, 
   Fingerprint, 
@@ -44,36 +43,27 @@ export default function Landing() {
   return (
     <PageLayout>
       {/* Hero Section */}
-      <section className="relative overflow-hidden min-h-[calc(100vh-4rem)] flex items-center">
-        {/* Aurora 3D Background */}
-        <div className="absolute inset-0 z-0">
-          <Aurora
-            colorStops={["#00d4ff", "#9233ea", "#ec4899", "#06b6d4", "#8b5cf6"]}
-            amplitude={1.5}
-            blend={0.6}
-            speed={0.3}
-          />
+      <section className="relative overflow-hidden min-h-[calc(100vh-4rem)] flex items-center cyber-grid">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-10 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-purple-500/15 rounded-full blur-[150px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/10 rounded-full blur-[200px]" />
         </div>
 
-        {/* Dark Overlay for readability */}
-        <div className="absolute inset-0 bg-background/70 backdrop-blur-[2px] z-[1]" />
-
-        {/* Cyber Grid Overlay */}
-        <div className="absolute inset-0 cyber-grid z-[2] opacity-30" />
-
         {/* Floating Hexagons */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(6)].map((_, i) => (
             <motion.div
               key={i}
               className="absolute text-primary/10"
               initial={{ 
-                x: `${10 + i * 15}%`, 
-                y: `${10 + i * 12}%`,
+                x: Math.random() * 100 + "%", 
+                y: Math.random() * 100 + "%",
                 rotate: 0 
               }}
               animate={{ 
-                y: [`${10 + i * 12}%`, `${5 + i * 12}%`, `${10 + i * 12}%`],
+                y: [null, "-20px", "0px"],
                 rotate: 360 
               }}
               transition={{ 
@@ -87,7 +77,7 @@ export default function Landing() {
           ))}
         </div>
         
-        <div className="container px-4 py-16 md:py-20 relative z-[3]">
+        <div className="container px-4 py-16 md:py-20 relative">
           <div className="max-w-4xl mx-auto text-center">
             {/* Badge */}
             <motion.div
