@@ -13,8 +13,8 @@ export function Footer() {
                 <Shield className="h-4 w-4 text-white" />
               </div>
               <span className="text-lg font-bold">
-                <span className="text-primary">Cred</span>
-                <span className="text-foreground">Layer</span>
+                <span className="text-primary">R</span>
+                <span className="text-foreground">-Credit</span>
               </span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-sm mb-4">
@@ -86,7 +86,7 @@ export function Footer() {
 
         <div className="border-t mt-8 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground">
-            © 2024 CredLayer. Built for demonstration purposes.
+            © 2024 R-Credit. Built for demonstration purposes.
           </p>
           <p className="text-xs text-muted-foreground">
             This is a hackathon demo. Not for production use.
